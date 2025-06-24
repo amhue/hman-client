@@ -1,15 +1,19 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Book from "../../../../../.emacs_backup/!home!aritr!Documents!Projects!Web!hman!src!Book.jsx~";
+import Book from "./Book";
 import Login from "./Login";
 import { ToastContainer, Flip } from "react-toastify";
-import Navbar from "./Navbar";
+import Navbar from "./components/Navbar";
 import Home from "./Home";
 import { useState, useEffect } from "react";
 import User from "./User";
 import Dashboard from "./Dashboard";
-import Table from "../../../../../.emacs_backup/!home!aritr!Documents!Projects!Web!hman!src!Table.jsx~";
+import Table from "./Table";
+import UserBookings from "./UserBookings";
+import UserTables from "./UserTables";
+import UserStays from "../../../../../.emacs_backup/!home!aritr!Documents!Projects!Web!hman!src!UserStays.jsx~";
+import UserPayments from "./UserPayments";
 
-function App() {
+export default function App() {
     const [user, setUser] = useState(null);
     const [err, setErr] = useState(null);
 
@@ -43,15 +47,26 @@ function App() {
                         element={<Book user={user} />}
                     />
                     <Route path="/login" element={<Login />} />
-                    <Route path="/user/:id" element={<User user={user} />}>
+                    <Route path="/user" element={<User user={user} />}>
                         <Route index element={<Dashboard />} />
+                        <Route
+                            path="/user/bookings"
+                            element={<UserBookings />}
+                        />
+                        <Route path="/user/table" element={<UserTables />} />
+                        <Route path="/user/stays" element={<UserStays />} />
+                        <Route
+                            path="/user/payments"
+                            element={<UserPayments />}
+                        />
                     </Route>
-                    <Route path="table" element={<Table />} />
+                    <Route
+                        path="table/:start?/:capacity?"
+                        element={<Table />}
+                    />
                 </Routes>
             </BrowserRouter>
             <ToastContainer transition={Flip} autoClose={3000} />
         </>
     );
 }
-
-export default App;

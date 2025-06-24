@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import BookCard from "./BookCard";
+import BookCard from "./components/BookCard";
 import { subDays, parseISO } from "date-fns";
-import SearchRoom from "./SearchRoom";
+import SearchRoom from "./components/SearchRoom";
 import { useParams } from "react-router-dom";
 
 export default function Book({ user }) {
@@ -32,14 +32,13 @@ export default function Book({ user }) {
             .catch((err) => setErr(err));
     }, [params]);
 
-    useEffect(() => {
-        if (err !== null) {
-            console.error(err);
-        }
-        setErr(null);
-    }, [err]);
-
-    if (!loaded) {
+    if (err != null) {
+        return (
+            <div className="text-2xl h-[calc(100vh-8rem)] pl-3">
+                Could not load bookings...
+            </div>
+        );
+    } else if (!loaded) {
         return (
             <div className="text-2xl h-[calc(100vh-8rem)] pl-3">
                 Loading data...

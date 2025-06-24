@@ -5,9 +5,9 @@ import { toast } from "react-toastify";
 
 import "react-datepicker/dist/react-datepicker.css";
 import { addDays, isWithinInterval } from "date-fns";
-import singleRoomImg from "./assets/single.png";
-import doubleRoomImg from "./assets/double.jpg";
-import deluxeRoomImg from "./assets/deluxe.jpg";
+import singleRoomImg from "../assets/single.png";
+import doubleRoomImg from "../assets/double.jpg";
+import deluxeRoomImg from "../assets/deluxe.jpg";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 

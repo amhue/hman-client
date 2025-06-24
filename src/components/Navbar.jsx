@@ -43,7 +43,7 @@ export default function Navbar({ user }) {
                         className="w-full h-full flex place-items-center justify-center"
                         to={
                             user !== null && user.id != null
-                                ? `/user/${user.id}`
+                                ? `/user`
                                 : "/login"
                         }
                     >

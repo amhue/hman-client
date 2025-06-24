@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
-import TableCard from "./TableCard";
+import TableCard from "./components/TableCard";
+import TableSearch from "./components/TableSearch";
+import { useParams } from "react-router-dom";
+import { addHours } from "date-fns";
 
 export default function Table() {
     const [user, setUser] = useState(null);
@@ -7,6 +10,7 @@ export default function Table() {
     const [err, setErr] = useState(null);
     const [loaded, setLoaded] = useState(false);
     const [bookings, setBookings] = useState([]);
+    const params = useParams();
 
     useEffect(() => {
         fetch(`http://localhost:8080/api/users/auth`, {
@@ -30,21 +34,30 @@ export default function Table() {
             )
             .catch((err) => setErr(err));
 
-        fetch(`http://localhost:8080/api/table`)
-            .then((res) => res.json())
-            .then((json) => {
-                setJson(json);
-                json = json.sort((a, b) => a.tableNumber - b.tableNumber);
-                setLoaded(true);
-            })
-            .catch((err) => setErr(err));
-    }, []);
+        if (params.start && params.capacity) {
+            fetch(
+                `http://localhost:8080/api/table/search?start=${params.start}&end=${addHours(
+                    new Date(params.start + "Z"),
+                    3,
+                )
+                    .toISOString()
+                    .substring(0, 16)}&capacity=${params.capacity}`,
+            )
+                .then((res) => res.json())
+                .then((json) => {
+                    setJson(json);
+                    json = json.sort((a, b) => a.tableNumber - b.tableNumber);
+                    setLoaded(true);
+                })
+                .catch((err) => setErr(err));
+        }
+    }, [params]);
 
     useEffect(() => {
         if (err !== null) console.error(err);
     }, [err]);
 
-    if (!loaded) {
+    if (!loaded && !(!params.start || !params.capacity)) {
         return (
             <div className="text-2xl h-[calc(100vh-8rem)] pl-3">
                 Loading data...
@@ -57,11 +70,32 @@ export default function Table() {
                 <br /> Book a room to continue!
             </div>
         );
+    } else if (json == null || json.length <= 0) {
+        return (
+            <div className="grid w-screen justify-items-center">
+                <div className="absolute top-0 ">
+                    <TableSearch />
+                </div>
+                <div className="text-4xl font-bold text-center w-screen -mt-[6rem]">
+                    Sorry, No tables are available!
+                </div>
+            </div>
+        );
+    } else if (!params.start || !params.capacity) {
+        return (
+            <div className="flex flex-col w-screen place-items-center h-screen">
+                <TableSearch />
+                <div className="text-4xl font-bold text-center w-screen h-screen grid place-items-center -mt-16">
+                    Search for Tables to reserve
+                </div>
+            </div>
+        );
     }
 
     return (
-        <div className="min-h-[calc(100vh-9rem)] w-screen grid justify-items-center">
-            <div className="w-screen max-w-[80em] flex flex-wrap gap-10 justify-center h-fit mt-15 mb-5">
+        <div className="flex flex-col w-screen place-items-center h-screen">
+            <TableSearch />
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 grid-cols-1 mt-4">
                 {json.map((table) => (
                     <TableCard
                         table={table}
