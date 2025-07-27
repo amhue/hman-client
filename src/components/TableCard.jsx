@@ -34,7 +34,6 @@ function bookTable(amount, date, tableNumber, booking) {
         bookingID: booking,
         tableNumber: tableNumber,
     };
-    console.log(req);
 
     fetch("http://localhost:8080/api/table-booking", {
         method: "POST",

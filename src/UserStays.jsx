@@ -40,9 +40,9 @@ export default function UserStays() {
         <div className="min-h-screen relative pt-20 w-screen flex flex-col gap-10">
             <div className="grid justify-items-center gap-4">
                 <h2 className="text-2xl font-medium w-full max-w-[47rem] pl-15 pr-15">
-                    Past Stays:
+                    Past Stays
                 </h2>
-                <div className="w-screen flex flex-wrap flex-cols justify-center">
+                <div className="w-screen flex flex-wrap flex-cols justify-center max-w-200">
                     {stays == null || stays.length <= 0 ? (
                         <Card className="w-full max-w-[40em] ml-15 mr-15 h-[7em] flex justify-center">
                             <CardHeader>

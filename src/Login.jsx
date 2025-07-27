@@ -13,7 +13,7 @@ import { Button } from "./components/ui/button";
 
 export default function Login() {
     return (
-        <div className="w-screen flex justify-center">
+        <div className="w-screen h-screen flex items-center justify-center">
             <Card className="w-100 text-center">
                 <CardHeader>
                     <CardTitle className="text-4xl text-center">

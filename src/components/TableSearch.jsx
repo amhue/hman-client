@@ -12,8 +12,8 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 
-import { Link } from "react-router-dom";
 import { Label } from "@/components/ui/label";
+import { Link } from "react-router-dom";
 
 export default function TableSearch() {
     const [date, setDate] = useState(setMinutes(new Date(), 0));
@@ -22,7 +22,7 @@ export default function TableSearch() {
     localStorage.setItem("date", JSON.stringify(date));
 
     return (
-        <div className="flex gap-5 flex-wrap mt-16 z-100">
+        <div className="flex gap-5 flex-wrap mt-16 relative">
             <div>
                 <Label htmlFor="date" className="mb-1">
                     Date:

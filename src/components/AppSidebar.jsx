@@ -9,53 +9,19 @@ import {
     SidebarMenuItem,
 } from "@/components/ui/sidebar";
 
-import { IoIosSettings, IoIosRestaurant } from "react-icons/io";
-import { MdDashboard, MdOutlinePayment, MdNightsStay } from "react-icons/md";
-import { IoTimer } from "react-icons/io5";
 import { CgLogOut } from "react-icons/cg";
 import { Link } from "react-router-dom";
 
-const items = [
-    {
-        title: "Dashboard",
-        icon: MdDashboard,
-        link: "",
-    },
-    {
-        title: "Bookings",
-        icon: MdNightsStay,
-        link: "bookings",
-    },
-    {
-        title: "Your Reservations",
-        icon: IoIosRestaurant,
-        link: "table",
-    },
-    {
-        title: "Payments",
-        icon: MdOutlinePayment,
-        link: "payments",
-    },
-    {
-        title: "Previous Stays",
-        icon: IoTimer,
-        link: "stays",
-    },
-    {
-        title: "Settings",
-        icon: IoIosSettings,
-        link: "settings",
-    },
-];
-
 const footer = [{ title: "Logout", icon: CgLogOut }];
 
-export default function AppSidebar() {
+export default function AppSidebar({ items, user }) {
     return (
-        <Sidebar className="mt-13">
+        <Sidebar className={user.mgmt ? "" : "mt-13"}>
             <SidebarContent className="bg-black/95">
-                <SidebarGroupLabel className="text-white text-lg pt-2 mb-2 ml-2 hidden">
-                    Hotel
+                <SidebarGroupLabel
+                    className={`text-white text-lg pt-2 ml-2 ${user.mgmt ? "" : "hidden mb-2"}`}
+                >
+                    Hotel Grand Oasis
                 </SidebarGroupLabel>
                 <SidebarGroupContent className="mt-3">
                     <SidebarMenu>
@@ -74,7 +40,9 @@ export default function AppSidebar() {
                     </SidebarMenu>
                 </SidebarGroupContent>
             </SidebarContent>
-            <SidebarFooter className="bg-black/95 min-[766px]:pb-16 pb-3 pl-0 pr-0">
+            <SidebarFooter
+                className={`bg-black/95 pb-3 pl-0 pr-0 ${user.mgmt ? "" : "min-[766px]:pb-16"}`}
+            >
                 <SidebarMenu>
                     {footer.map((item) => (
                         <SidebarMenuItem key={item.title}>

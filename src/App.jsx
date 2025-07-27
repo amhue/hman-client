@@ -1,17 +1,21 @@
+import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Flip, ToastContainer } from "react-toastify";
+import AdminRooms from "./AdminRooms";
+import AdminTables from "./AdminTables";
+import AdminUsers from "./AdminUsers";
 import Book from "./Book";
-import Login from "./Login";
-import { ToastContainer, Flip } from "react-toastify";
+import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import Home from "./Home";
-import { useState, useEffect } from "react";
-import User from "./User";
-import Dashboard from "./Dashboard";
+import Login from "./Login";
 import Table from "./Table";
+import User from "./User";
 import UserBookings from "./UserBookings";
-import UserTables from "./UserTables";
-import UserStays from "./UserStays";
 import UserPayments from "./UserPayments";
+import UserSettings from "./UserSettings";
+import UserStays from "./UserStays";
+import UserTables from "./UserTables";
 
 export default function App() {
     const [user, setUser] = useState(null);
@@ -36,37 +40,69 @@ export default function App() {
         }
     }, [err]);
 
+    if (user != null && user.mgmt) {
+        return (
+            <div className="min-h-screen flex flex-col">
+                <BrowserRouter>
+                    <main className="flex-1">
+                        <Routes>
+                            <Route path="/" element={<User user={user} />}>
+                                <Route
+                                    path="/:userSearch?"
+                                    element={<AdminUsers />}
+                                />
+                                <Route path="/rooms" element={<AdminRooms />} />
+                                <Route
+                                    path="/tables"
+                                    element={<AdminTables />}
+                                />
+                            </Route>
+                        </Routes>
+                    </main>
+                    <Footer />
+                </BrowserRouter>
+                <ToastContainer transition={Flip} autoClose={3000} />
+            </div>
+        );
+    }
+
     return (
-        <>
+        <div className="min-h-screen flex flex-col">
             <BrowserRouter>
                 <Navbar user={user} />
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route
-                        path="/book/:start?/:end?/:type?"
-                        element={<Book user={user} />}
-                    />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/user" element={<User user={user} />}>
-                        <Route index element={<Dashboard />} />
+                <main className="flex-1">
+                    <Routes>
+                        <Route path="/" element={<Home />} />
                         <Route
-                            path="/user/bookings"
-                            element={<UserBookings />}
+                            path="/book/:start?/:end?/:type?"
+                            element={<Book user={user} />}
                         />
-                        <Route path="/user/table" element={<UserTables />} />
-                        <Route path="/user/stays" element={<UserStays />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/user" element={<User user={user} />}>
+                            <Route index element={<UserBookings />} />
+                            <Route
+                                path="/user/table"
+                                element={<UserTables />}
+                            />
+                            <Route path="/user/stays" element={<UserStays />} />
+                            <Route
+                                path="/user/payments"
+                                element={<UserPayments />}
+                            />
+                            <Route
+                                path="/user/settings"
+                                element={<UserSettings user={user} />}
+                            />
+                        </Route>
                         <Route
-                            path="/user/payments"
-                            element={<UserPayments />}
+                            path="table/:start?/:capacity?"
+                            element={<Table />}
                         />
-                    </Route>
-                    <Route
-                        path="table/:start?/:capacity?"
-                        element={<Table />}
-                    />
-                </Routes>
+                    </Routes>
+                </main>
+                <Footer />
             </BrowserRouter>
             <ToastContainer transition={Flip} autoClose={3000} />
-        </>
+        </div>
     );
 }

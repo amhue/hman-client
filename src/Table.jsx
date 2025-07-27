@@ -1,8 +1,8 @@
+import { addHours } from "date-fns";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import TableCard from "./components/TableCard";
 import TableSearch from "./components/TableSearch";
-import { useParams } from "react-router-dom";
-import { addHours } from "date-fns";
 
 export default function Table() {
     const [user, setUser] = useState(null);
@@ -59,34 +59,36 @@ export default function Table() {
 
     if (!loaded && !(!params.start || !params.capacity)) {
         return (
-            <div className="text-2xl h-[calc(100vh-8rem)] pl-3">
+            <div className="text-2xl h-[calc(100vh-8rem)] pl-3 pt-20">
                 Loading data...
             </div>
         );
     } else if (!(user && user.id && bookings.length > 0)) {
         return (
-            <div className="text-4xl font-bold text-center w-screen">
+            <div className="text-4xl font-bold text-center w-screen pt-20">
                 You don't have any Bookings!
                 <br /> Book a room to continue!
             </div>
         );
-    } else if (json == null || json.length <= 0) {
+    } else if (!params.start || !params.capacity) {
         return (
-            <div className="grid w-screen justify-items-center">
+            <div className="grid w-screen justify-items-center pt-20">
                 <div className="absolute top-0 ">
                     <TableSearch />
                 </div>
-                <div className="text-4xl font-bold text-center w-screen -mt-[6rem]">
-                    Sorry, No tables are available!
+                <div className="text-4xl font-bold text-center w-screen -mt-[6rem] absolute top-[50%]">
+                    Search for tables to reserve
                 </div>
             </div>
         );
-    } else if (!params.start || !params.capacity) {
+    } else if (json == null || json.length <= 0) {
         return (
-            <div className="flex flex-col w-screen place-items-center h-screen">
-                <TableSearch />
-                <div className="text-4xl font-bold text-center w-screen h-screen grid place-items-center -mt-16">
-                    Search for Tables to reserve
+            <div className="grid w-screen justify-items-center pt-20">
+                <div className="absolute top-0 ">
+                    <TableSearch />
+                </div>
+                <div className="text-4xl font-bold text-center w-screen -mt-[6rem] absolute top-[50%]">
+                    Sorry, No tables are available!
                 </div>
             </div>
         );

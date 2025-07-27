@@ -30,14 +30,14 @@ export default function UserPayments() {
             <div className="h-screen text-2xl pl-13 pt-14">Loading data...</div>
         );
     }
-    console.log(bills);
+
     return (
         <div className="min-h-screen relative pt-20 w-screen flex flex-col gap-10">
             <div className="grid justify-items-center gap-4">
                 <h2 className="text-2xl font-medium w-full max-w-[47rem] pl-15 pr-15">
                     Your Bills:
                 </h2>
-                <div className="w-screen flex flex-wrap flex-cols justify-center">
+                <div className="w-screen flex flex-wrap flex-cols justify-center max-w-200">
                     {bills == null || bills.length <= 0 ? (
                         <Card className="w-full max-w-[40em] ml-15 mr-15 h-[7em] flex justify-center">
                             <CardHeader>

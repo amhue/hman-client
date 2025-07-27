@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import {
     Card,
@@ -9,7 +9,7 @@ import {
 
 export default function UserTables() {
     const [tables, setTables] = useState(null);
-    const [bookings, setBookings] = useState(null);
+    const [_, setBookings] = useState(null);
     const [err, setErr] = useState(null);
     const [loaded, setLoaded] = useState(false);
 
@@ -47,7 +47,7 @@ export default function UserTables() {
         );
     }
 
-    console.log(tables, bookings);
+    console.log(tables);
 
     return (
         <div className="min-h-screen relative pt-20 w-screen flex flex-col gap-10">
