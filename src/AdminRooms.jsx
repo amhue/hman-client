@@ -40,7 +40,7 @@ export default function () {
 
         setRooms(
             await fetch(
-                `http://localhost:8080/api/admin/rooms?${params.toString()}`,
+                `${import.meta.env.VITE_SERVER_URL}/api/admin/rooms?${params.toString()}`,
                 {
                     credentials: "include",
                 },

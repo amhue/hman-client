@@ -13,7 +13,7 @@ export default function UserStays() {
     const [err, setErr] = useState(null);
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/users/past`, {
+        fetch(`${import.meta.env.VITE_SERVER_URL}/api/users/past`, {
             credentials: "include",
         })
             .then((res) => res.json())

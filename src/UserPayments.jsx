@@ -8,7 +8,7 @@ export default function UserPayments() {
     const [err, setErr] = useState(null);
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/users/bills`, {
+        fetch(`${import.meta.env.VITE_SERVER_URL}/api/users/bills`, {
             credentials: "include",
         })
             .then((res) => res.json())

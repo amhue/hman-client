@@ -18,10 +18,10 @@ import {
     TableRow,
 } from "@/components/ui/table";
 
+import AddTableDialog from "@/components/AddTableDialog";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { IoMdSearch } from "react-icons/io";
-import AddTableDialog from "@/components/AddTableDialog";
 
 export default function AdminTables() {
     const [tables, setTables] = useState([]);
@@ -39,7 +39,7 @@ export default function AdminTables() {
         }
 
         const res = await fetch(
-            `http://localhost:8080/api/admin/tables?${params}`,
+            `${import.meta.env.VITE_SERVER_URL}/api/admin/tables?${params}`,
             {
                 credentials: "include",
             },

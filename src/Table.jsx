@@ -13,7 +13,7 @@ export default function Table() {
     const params = useParams();
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/users/auth`, {
+        fetch(`${import.meta.env.VITE_SERVER_URL}/api/users/auth`, {
             credentials: "include",
         })
             .then((res) => res.json())
@@ -21,11 +21,11 @@ export default function Table() {
             .catch((err) => setErr(err));
 
         Promise.all([
-            fetch(`http://localhost:8080/api/users/current`, {
+            fetch(`${import.meta.env.VITE_SERVER_URL}/api/users/current`, {
                 credentials: "include",
             }).then((res) => res.json()),
 
-            fetch(`http://localhost:8080/api/users/upcoming`, {
+            fetch(`${import.meta.env.VITE_SERVER_URL}/api/users/upcoming`, {
                 credentials: "include",
             }).then((res) => res.json()),
         ])
@@ -36,7 +36,7 @@ export default function Table() {
 
         if (params.start && params.capacity) {
             fetch(
-                `http://localhost:8080/api/table/search?start=${params.start}&end=${addHours(
+                `${import.meta.env.VITE_SERVER_URL}/api/table/search?start=${params.start}&end=${addHours(
                     new Date(params.start + "Z"),
                     3,
                 )

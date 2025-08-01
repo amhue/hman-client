@@ -15,11 +15,18 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 
-import { Button } from "@/components/ui/button";
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/components/ui/accordion";
+
 import { Label } from "@/components/ui/label";
 import { addHours } from "date-fns";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import Payment from "./Payment";
 
 function bookTable(amount, date, tableNumber, booking) {
     if (new Date(date).getHours() < 7 || new Date(date).getHours() >= 23) {
@@ -35,7 +42,7 @@ function bookTable(amount, date, tableNumber, booking) {
         tableNumber: tableNumber,
     };
 
-    fetch("http://localhost:8080/api/table-booking", {
+    fetch(`${import.meta.env.VITE_SERVER_URL}/api/table-booking`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(req),
@@ -51,23 +58,31 @@ export default function TableCard({ table, bookings }) {
     const [value, setValue] = useState(`${bookings[0].id}`);
 
     return (
-        <Card className="w-[21em] h-fit">
+        <Card className="w-[21em] h-fit overflow-scroll">
             <CardHeader>
                 <CardTitle>Table {table.tableNumber}</CardTitle>
                 <CardDescription>For {table.capacity} people</CardDescription>
                 <CardAction>
-                    <Button
-                        onClick={() => {
-                            bookTable(
-                                table.amount,
-                                JSON.parse(localStorage.getItem("date")),
-                                table.tableNumber,
-                                Number(value),
-                            );
-                        }}
-                    >
-                        Book Table
-                    </Button>
+                    <Accordion type="single" collapsible>
+                        <AccordionItem value="item-1">
+                            <AccordionTrigger>Book Table</AccordionTrigger>
+                            <AccordionContent>
+                                <Payment
+                                    amount={table.amount * 100}
+                                    callback={() => {
+                                        bookTable(
+                                            table.amount,
+                                            JSON.parse(
+                                                localStorage.getItem("date"),
+                                            ),
+                                            table.tableNumber,
+                                            Number(value),
+                                        );
+                                    }}
+                                />
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
                 </CardAction>
             </CardHeader>
             <CardContent>

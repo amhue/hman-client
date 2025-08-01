@@ -24,7 +24,7 @@ export default function AdminUsers() {
 
     useEffect(() => {
         fetch(
-            `http://localhost:8080/api/admin/users${params && params.userSearch ? "?userString=" + params.userSearch : ""}`,
+            `${import.meta.env.VITE_SERVER_URL}/api/admin/users${params && params.userSearch ? "?userString=" + params.userSearch : ""}`,
             {
                 credentials: "include",
             },

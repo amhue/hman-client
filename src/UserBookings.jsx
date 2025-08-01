@@ -29,7 +29,7 @@ export default function UserBookings() {
     const [err, setErr] = useState(null);
 
     function deleteBooking(id) {
-        fetch(`http://localhost:8080/api/booking/${id}`, {
+        fetch(`${import.meta.env.VITE_SERVER_URL}/api/booking/${id}`, {
             credentials: "include",
             method: "DELETE",
         })
@@ -39,11 +39,11 @@ export default function UserBookings() {
 
     useEffect(() => {
         Promise.all([
-            fetch(`http://localhost:8080/api/users/current`, {
+            fetch(`${import.meta.env.VITE_SERVER_URL}/api/users/current`, {
                 credentials: "include",
             }).then((res) => res.json()),
 
-            fetch(`http://localhost:8080/api/users/upcoming`, {
+            fetch(`${import.meta.env.VITE_SERVER_URL}/api/users/upcoming`, {
                 credentials: "include",
             }).then((res) => res.json()),
         ])

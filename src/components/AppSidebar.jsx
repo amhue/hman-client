@@ -48,7 +48,7 @@ export default function AppSidebar({ items, user }) {
                         <SidebarMenuItem key={item.title}>
                             <SidebarMenuButton
                                 onClick={() => {
-                                    fetch("http://localhost:8080/logout", {
+                                    fetch(`${import.meta.env.VITE_SERVER_URL}/logout`, {
                                         method: "POST",
                                         credentials: "include",
                                     }).then(() => (window.location.href = "/"));

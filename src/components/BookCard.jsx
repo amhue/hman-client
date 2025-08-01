@@ -3,15 +3,14 @@ import DatePicker from "react-datepicker";
 
 import { toast } from "react-toastify";
 
-import "react-datepicker/dist/react-datepicker.css";
 import { addDays, isWithinInterval } from "date-fns";
-import singleRoomImg from "../assets/single.png";
-import doubleRoomImg from "../assets/double.jpg";
+import "react-datepicker/dist/react-datepicker.css";
 import deluxeRoomImg from "../assets/deluxe.jpg";
+import doubleRoomImg from "../assets/double.jpg";
+import singleRoomImg from "../assets/single.png";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 
 import {
@@ -23,6 +22,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { Link } from "react-router-dom";
+import Payment from "./Payment";
 
 export default function BookCard({ el, user, bookedIntervals }) {
     const [start, setStart] = useState(new Date());
@@ -56,7 +56,7 @@ export default function BookCard({ el, user, bookedIntervals }) {
                 end: end.toISOString(),
             };
 
-            fetch("http://localhost:8080/api/booking", {
+            fetch(`${import.meta.env.VITE_SERVER_URL}/api/booking`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(req),
@@ -78,7 +78,7 @@ export default function BookCard({ el, user, bookedIntervals }) {
 
     return (
         <>
-            <Card className="w-[26vw] max-w-[20em] mb-[2em]">
+            <Card className="w-[26vw] max-w-[20em] mb-[2em] overflow-scroll">
                 <CardHeader>
                     <img
                         className="rounded-md"
@@ -157,16 +157,21 @@ export default function BookCard({ el, user, bookedIntervals }) {
                                             : ""
                                     }
                                 >
-                                    <Button
+                                    <Payment
+                                        amount={
+                                            el.roomType === "DELUXE"
+                                                ? 2500 * 100
+                                                : el.roomType === "DOUBLE"
+                                                  ? 1500 * 100
+                                                  : 1000 * 100
+                                        }
                                         className="w-20"
-                                        onClick={
+                                        callback={
                                             user != null && user.id != null
                                                 ? () => bookRoom(el, start, end)
                                                 : () => {}
                                         }
-                                    >
-                                        Book
-                                    </Button>
+                                    />
                                 </Link>
                             </DialogHeader>
                         </DialogContent>

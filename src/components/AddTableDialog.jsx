@@ -1,11 +1,11 @@
 import {
     Dialog,
+    DialogClose,
     DialogContent,
+    DialogFooter,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-    DialogFooter,
-    DialogClose,
 } from "@/components/ui/dialog";
 
 import {
@@ -16,11 +16,11 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useState } from "react";
 import { IoMdAdd } from "react-icons/io";
-import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
 export default function () {
@@ -36,7 +36,7 @@ export default function () {
         };
 
         try {
-            const res = await fetch("http://localhost:8080/api/table/add", {
+            const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/table/add`, {
                 credentials: "include",
                 body: JSON.stringify(req),
                 method: "POST",

@@ -1,8 +1,8 @@
+import { parseISO, subDays } from "date-fns";
 import { useEffect, useState } from "react";
-import BookCard from "./components/BookCard";
-import { subDays, parseISO } from "date-fns";
-import SearchRoom from "./components/SearchRoom";
 import { useParams } from "react-router-dom";
+import BookCard from "./components/BookCard";
+import SearchRoom from "./components/SearchRoom";
 
 export default function Book({ user }) {
     const [json, setJson] = useState(null);
@@ -19,7 +19,7 @@ export default function Book({ user }) {
             req.end = params.end;
         }
 
-        fetch(`http://localhost:8080/api/rooms/search`, {
+        fetch(`${import.meta.env.VITE_SERVER_URL}/api/rooms/search`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(req),

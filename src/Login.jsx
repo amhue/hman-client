@@ -2,10 +2,8 @@ import { FcGoogle } from "react-icons/fc";
 
 import {
     Card,
-    CardAction,
     CardContent,
     CardDescription,
-    CardFooter,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
@@ -30,8 +28,7 @@ export default function Login() {
                     <Button
                         className="h-13 !text-md"
                         onClick={() => {
-                            window.location.href =
-                                "http://localhost:8080/oauth2/authorization/google";
+                            window.location.href = `${import.meta.env.VITE_SERVER_URL}/oauth2/authorization/google`;
                         }}
                     >
                         <FcGoogle /> Continue with Google

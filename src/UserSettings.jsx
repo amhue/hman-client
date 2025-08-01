@@ -1,11 +1,11 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useState } from "react";
 
-import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css";
 import { toast } from "react-toastify";
 
 export default function EditProfilePage({ user }) {
@@ -45,7 +45,7 @@ export default function EditProfilePage({ user }) {
         }
 
         try {
-            await fetch("http://localhost:8080/api/users/profile", {
+            await fetch(`${import.meta.env.VITE_SERVER_URL}/api/users/profile`, {
                 method: "POST",
                 body: formData,
                 // headers: { "Content-Type": "multipart/form-data" },

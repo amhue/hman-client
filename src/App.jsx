@@ -7,6 +7,7 @@ import AdminUsers from "./AdminUsers";
 import Book from "./Book";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
+import Payment from "./components/Payment";
 import Home from "./Home";
 import Login from "./Login";
 import Table from "./Table";
@@ -22,7 +23,7 @@ export default function App() {
     const [err, setErr] = useState(null);
 
     function fetchUser() {
-        fetch("http://localhost:8080/api/users/auth", {
+        fetch(`${import.meta.env.VITE_SERVER_URL}/api/users/auth`, {
             credentials: "include",
         })
             .then((res) => res.json())
@@ -98,6 +99,7 @@ export default function App() {
                             path="table/:start?/:capacity?"
                             element={<Table />}
                         />
+                        <Route path="pay" element={<Payment />} />
                     </Routes>
                 </main>
                 <Footer />

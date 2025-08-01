@@ -8,10 +8,11 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 
-import { IoMdAdd } from "react-icons/io";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { IoMdAdd } from "react-icons/io";
 
+import { Button } from "@/components/ui/button";
 import {
     Select,
     SelectContent,
@@ -19,7 +20,6 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
@@ -34,7 +34,7 @@ export default function AddRoomDialog() {
         };
 
         try {
-            let res = await fetch("http://localhost:8080/api/rooms/add", {
+            let res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/rooms/add`, {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
