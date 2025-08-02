@@ -43,7 +43,7 @@ export default function App() {
 
     if (user != null && user.mgmt) {
         return (
-            <div className="min-h-screen flex flex-col max-w-screen">
+            <div className="min-h-screen flex flex-col">
                 <BrowserRouter>
                     <main className="flex-1">
                         <Routes>
@@ -68,7 +68,7 @@ export default function App() {
     }
 
     return (
-        <div className="min-h-screen flex flex-col max-w-screen">
+        <div className="min-h-screen flex flex-col">
             <BrowserRouter>
                 <Navbar user={user} />
                 <main className="flex-1">
