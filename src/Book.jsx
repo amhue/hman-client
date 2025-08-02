@@ -21,6 +21,7 @@ export default function Book({ user }) {
 
         fetch(`${import.meta.env.VITE_SERVER_URL}/api/rooms/search`, {
             method: "POST",
+            credentials: "include",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(req),
         })
