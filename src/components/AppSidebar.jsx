@@ -55,7 +55,6 @@ export default function AppSidebar({ items, user }) {
                                             credentials: "include",
                                         },
                                     ).then(() => (window.location.href = "/"));
-                                    window.location.href = "/";
                                 }}
                             >
                                 <item.icon className="text-white" />
