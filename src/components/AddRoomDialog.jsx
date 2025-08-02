@@ -34,12 +34,15 @@ export default function AddRoomDialog() {
         };
 
         try {
-            let res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/rooms/add`, {
-                method: "POST",
-                credentials: "include",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(req),
-            });
+            let res = await fetch(
+                `${import.meta.env.VITE_SERVER_URL}/api/rooms/add`,
+                {
+                    method: "POST",
+                    credentials: "include",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(req),
+                },
+            );
 
             if (!res.ok) {
                 throw new Error();
@@ -53,7 +56,7 @@ export default function AddRoomDialog() {
 
     return (
         <Dialog>
-            <DialogTrigger className="text-white !p-1 flex !pl-3 !pr-3">
+            <DialogTrigger className="text-white !p-1 flex !pl-3 !pr-3 !overflow-auto">
                 Add Room <IoMdAdd className="mt-1" />
             </DialogTrigger>
             <DialogContent>

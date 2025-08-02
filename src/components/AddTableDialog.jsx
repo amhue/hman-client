@@ -36,12 +36,15 @@ export default function () {
         };
 
         try {
-            const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/table/add`, {
-                credentials: "include",
-                body: JSON.stringify(req),
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-            });
+            const res = await fetch(
+                `${import.meta.env.VITE_SERVER_URL}/api/table/add`,
+                {
+                    credentials: "include",
+                    body: JSON.stringify(req),
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                },
+            );
 
             if (!res.ok) {
                 throw new Error();
@@ -56,7 +59,7 @@ export default function () {
 
     return (
         <Dialog>
-            <DialogTrigger className="text-white flex !pt-1 !pb-1">
+            <DialogTrigger className="text-white flex !pt-1 !pb-1 !overflow-auto">
                 Add Table <IoMdAdd className="mt-0.75" />
             </DialogTrigger>
             <DialogContent>
