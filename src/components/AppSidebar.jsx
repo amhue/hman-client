@@ -54,11 +54,8 @@ export default function AppSidebar({ items, user }) {
                                             method: "POST",
                                             credentials: "include",
                                         },
-                                    ).then(
-                                        () =>
-                                            (window.location.href =
-                                                import.meta.env.VITE_SERVER_URL),
-                                    );
+                                    ).then(() => (window.location.href = "/"));
+                                    window.location.href = "/";
                                 }}
                             >
                                 <item.icon className="text-white" />
