@@ -78,7 +78,7 @@ export default function BookCard({ el, user, bookedIntervals }) {
 
     return (
         <>
-            <Card className="w-[26vw] max-w-[20em] mb-[2em] overflow-scroll">
+            <Card className="w-[26vw] max-w-[20em] mb-[2em]">
                 <CardHeader>
                     <img
                         className="rounded-md"
