@@ -46,6 +46,7 @@ export default function Book({ user }) {
             </div>
         );
     } else if (!Array.isArray(json) || json.length === 0) {
+        console.log("json:", json);
         return (
             <div className="grid justify-items-center w-screen mt-[4em] h-[calc(100vh-6rem)]">
                 <SearchRoom />
