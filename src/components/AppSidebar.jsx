@@ -10,13 +10,11 @@ import {
 } from "@/components/ui/sidebar";
 
 import { CgLogOut } from "react-icons/cg";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const footer = [{ title: "Logout", icon: CgLogOut }];
 
 export default function AppSidebar({ items, user }) {
-    const nav = useNavigate();
-
     return (
         <Sidebar className={user.mgmt ? "" : "mt-13"}>
             <SidebarContent className="bg-black/95">
@@ -56,7 +54,13 @@ export default function AppSidebar({ items, user }) {
                                             method: "POST",
                                             credentials: "include",
                                         },
-                                    ).then(() => nav("/"));
+                                    )
+                                        .then(
+                                            () => (window.location.href = "/"),
+                                        )
+                                        .catch(
+                                            () => (window.location.href = "/"),
+                                        );
                                 }}
                             >
                                 <item.icon className="text-white" />
