@@ -3,7 +3,7 @@ import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 export default function () {
     return (
         <footer
-            className="bg-black/95 p-5 w-full sticky top-[100vh] left-0 h-fit"
+            className="bg-black/95 p-5 w-screen sticky top-[100vh] left-0 h-fit"
             id="contact"
         >
             <div className="flex justify-between text-white w-full mt-auto">
