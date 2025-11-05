@@ -1,65 +1,77 @@
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 
-export default function () {
+export default function Footer() {
     return (
         <footer
-            className="bg-black/95 p-5 w-screen sticky top-[100vh] left-0 h-fit"
             id="contact"
+            className="bg-black/95 text-white w-full border-t border-white/10"
         >
-            <div className="flex justify-between text-white w-full mt-auto">
-                <div>
-                    <h2 className="font-bold pb-3">Contact Us</h2>
-                    <p>Hotel Grand Oasis</p>
-                    <p>42 Sunset Boulevard, Dream City, ZZ 99999</p>
-                    <p>Phone: +1 (555) 123-4567</p>
-                    <p>Email: contact@luxora.fake</p>
+            <div className="max-w-5xl mx-auto px-6 py-10 text-center flex flex-col items-center">
+                {/* Contact */}
+                <div className="mb-8">
+                    <h2 className="font-semibold text-lg mb-3 text-white/90">
+                        Contact Us
+                    </h2>
+                    <p className="text-white/80">Hotel Grand Oasis</p>
+                    <p className="text-white/80">
+                        42 Sunset Boulevard, Dream City, ZZ 99999
+                    </p>
+                    <p className="mt-2 text-white/70">📞 +1 (555) 123-4567</p>
+                    <p className="text-white/70">✉️ contact@luxora.fake</p>
                 </div>
 
-                <div>
-                    <h2 className="font-bold pb-3">Quick Links</h2>
-                    <ul>
-                        <li>
-                            <a href="#">Home</a>
-                        </li>
-                        <li>
-                            <a href="#">Rooms</a>
-                        </li>
-                        <li>
-                            <a href="#">Dining</a>
-                        </li>
-                        <li>
-                            <a href="#">Amenities</a>
-                        </li>
-                        <li>
-                            <a href="#">Contact</a>
-                        </li>
+                {/* Quick Links */}
+                <div className="mb-8">
+                    <h2 className="font-semibold text-lg mb-3 text-white/90">
+                        Quick Links
+                    </h2>
+                    <ul className="flex flex-wrap justify-center gap-6 text-white/70">
+                        {["Home", "Rooms", "Dining", "Amenities", "Contact"].map(
+                            (link) => (
+                                <li key={link}>
+                                    <a
+                                        href="#"
+                                        className="hover:text-white transition duration-300"
+                                    >
+                                        {link}
+                                    </a>
+                                </li>
+                            )
+                        )}
                     </ul>
                 </div>
 
-                <div>
-                    <h2 className="font-bold pb-3">Follow Us</h2>
-                    <ul>
-                        <li>
-                            <a href="#">
-                                <FaFacebook className="inline" /> Facebook
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <FaInstagram className="inline" />
-                                Instagram
-                            </a>
-                        </li>
-                        <li>
-                            <FaTwitter className="inline" />
-                            <a href="#">Twitter</a>
-                        </li>
-                    </ul>
+                {/* Social */}
+                <div className="mb-6">
+                    <h2 className="font-semibold text-lg mb-3 text-white/90">
+                        Follow Us
+                    </h2>
+                    <div className="flex justify-center space-x-6 text-2xl">
+                        <a
+                            href="#"
+                            className="hover:text-blue-500 transition duration-300"
+                        >
+                            <FaFacebook />
+                        </a>
+                        <a
+                            href="#"
+                            className="hover:text-pink-500 transition duration-300"
+                        >
+                            <FaInstagram />
+                        </a>
+                        <a
+                            href="#"
+                            className="hover:text-sky-400 transition duration-300"
+                        >
+                            <FaTwitter />
+                        </a>
+                    </div>
                 </div>
-            </div>
 
-            <div className="text-center text-white pt-5">
-                <p>&copy; 2025 Hotel Grand Oasis. All rights reserved.</p>
+                {/* Bottom Bar */}
+                <div className="border-t border-white/10 w-full pt-4 text-sm text-white/60">
+                    © 2025 Hotel Grand Oasis. All rights reserved.
+                </div>
             </div>
         </footer>
     );

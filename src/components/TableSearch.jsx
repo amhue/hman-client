@@ -55,7 +55,7 @@ export default function TableSearch() {
                     <Label htmlFor="cap" className="mb-1">
                         People:
                     </Label>
-                    <SelectTrigger className="!bg-white !border-sky-200 !font-normal">
+                    <SelectTrigger className="!font-normal">
                         <SelectValue placeholder="Theme" />
                     </SelectTrigger>
                     <SelectContent>

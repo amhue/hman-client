@@ -1,6 +1,6 @@
-import * as React from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { XIcon } from "lucide-react";
+import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -8,16 +8,28 @@ function Dialog({ ...props }) {
     return <DialogPrimitive.Root data-slot="dialog" {...props} />;
 }
 
-function DialogTrigger({ ...props }) {
-    return <DialogPrimitive.Trigger data-slot="dialog-trigger" {...props} />;
+function DialogTrigger({ className, ...props }) {
+    return (
+        <DialogPrimitive.Trigger
+            data-slot="dialog-trigger"
+            className={cn("text-white", className)}
+            {...props}
+        />
+    );
 }
 
 function DialogPortal({ ...props }) {
     return <DialogPrimitive.Portal data-slot="dialog-portal" {...props} />;
 }
 
-function DialogClose({ ...props }) {
-    return <DialogPrimitive.Close data-slot="dialog-close" {...props} />;
+function DialogClose({ className, ...props }) {
+    return (
+        <DialogPrimitive.Close
+            className={cn("text-white", className)}
+            data-slot="dialog-close"
+            {...props}
+        />
+    );
 }
 
 function DialogOverlay({ className, ...props }) {
@@ -121,5 +133,6 @@ export {
     DialogOverlay,
     DialogPortal,
     DialogTitle,
-    DialogTrigger,
+    DialogTrigger
 };
+

@@ -19,7 +19,7 @@ export default function AppSidebar({ items, user }) {
         <Sidebar className={user.mgmt ? "" : "mt-13"}>
             <SidebarContent className="bg-black/95">
                 <SidebarGroupLabel
-                    className={`text-white text-lg pt-2 ml-2 ${user.mgmt ? "" : "hidden mb-2"}`}
+                    className={`text-lg pt-2 ml-2 ${user.mgmt ? "" : "hidden mb-2"}`}
                 >
                     Hotel Grand Oasis
                 </SidebarGroupLabel>

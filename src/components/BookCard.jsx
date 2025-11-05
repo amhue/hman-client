@@ -10,7 +10,6 @@ import doubleRoomImg from "../assets/double.jpg";
 import singleRoomImg from "../assets/single.png";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
 import { Label } from "@/components/ui/label";
 
 import {
@@ -29,20 +28,32 @@ export default function BookCard({ el, user, bookedIntervals }) {
     const [end, setEnd] = useState(addDays(new Date(), 1));
     const [booked, setBooked] = useState(bookedIntervals);
 
+    // Calculate price based on room type
+    const price =
+        el.roomType === "DELUXE"
+            ? 2500
+            : el.roomType === "DOUBLE"
+              ? 1500
+              : 1000;
+
     function bookRoom(room, start, end) {
         if (start >= end) {
-            toast.error("Check-in date should be before check-out!", {});
+            toast.error("Check-in date should be before check-out!");
             return;
         } else if (
             (() => {
-                booked.forEach((e) => {
+                for (const e of booked) {
                     if (
-                        isWithinInterval(start, e) ||
-                        isWithinInterval(end, e)
+                        isWithinInterval(start, {
+                            start: e.start,
+                            end: e.end,
+                        }) ||
+                        isWithinInterval(end, { start: e.start, end: e.end }) ||
+                        (start <= e.start && end >= e.end)
                     ) {
                         return true;
                     }
-                });
+                }
                 return false;
             })()
         ) {
@@ -64,10 +75,12 @@ export default function BookCard({ el, user, bookedIntervals }) {
                 .then((res) => {
                     if (!res.ok) {
                         console.error("Error: ", res.statusText);
+                        toast.error("Failed to book room.");
+                        return;
                     }
                     toast.dismiss();
                     toast.success("Booked room successfully!");
-                    setBooked([...booked, { start: start, end: end }]);
+                    setBooked([...booked, { start, end }]);
                 })
                 .catch((err) => {
                     console.error(err);
@@ -77,107 +90,104 @@ export default function BookCard({ el, user, bookedIntervals }) {
     }
 
     return (
-        <>
-            <Card className="w-[26vw] max-w-[20em] mb-[2em]">
-                <CardHeader>
-                    <img
-                        className="rounded-md"
-                        src={
-                            el.roomType === "SINGLE"
-                                ? singleRoomImg
-                                : el.roomType === "DOUBLE"
-                                  ? doubleRoomImg
-                                  : el.roomType === "DELUXE"
-                                    ? deluxeRoomImg
-                                    : null
-                        }
-                    />
-                    <CardTitle className="mt-2">Room {el.roomNumber}</CardTitle>
-                    <p>{el.roomType} Room</p>
-                </CardHeader>
-                <CardContent>
-                    <Dialog>
-                        <DialogTrigger className="text-white">
-                            Book
-                        </DialogTrigger>
-                        <DialogContent>
-                            <DialogHeader>
-                                <DialogTitle className="mb-4">
-                                    Room {el.roomNumber}
-                                </DialogTitle>
-                                <DialogDescription>
+        <Card className="w-[26vw] max-w-[20em] mb-[2em] shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <CardHeader className="flex flex-col items-center gap-3">
+                <img
+                    className="rounded-md object-cover w-full h-36"
+                    src={
+                        el.roomType === "SINGLE"
+                            ? singleRoomImg
+                            : el.roomType === "DOUBLE"
+                              ? doubleRoomImg
+                              : el.roomType === "DELUXE"
+                                ? deluxeRoomImg
+                                : null
+                    }
+                    alt={`${el.roomType} room`}
+                />
+                <CardTitle className="text-lg font-semibold">
+                    Room {el.roomNumber}
+                </CardTitle>
+                <p className="text-sm text-gray-600">{el.roomType} Room</p>
+                <p className="text-md font-semibold mt-1">₹{price} / night</p>
+            </CardHeader>
+            <CardContent>
+                <Dialog>
+                    <DialogTrigger className="btn-primary w-full text-center py-2 rounded-md cursor-pointer">
+                        Book Now
+                    </DialogTrigger>
+                    <DialogContent className="max-w-md">
+                        <DialogHeader>
+                            <DialogTitle>Book Room {el.roomNumber}</DialogTitle>
+                            <DialogDescription className="mt-4 space-y-4">
+                                <div>
                                     <Label
                                         htmlFor={`${el.roomNumber}start`}
-                                        className="mb-1"
+                                        className="mb-1 block font-medium"
                                     >
                                         Check-in
                                     </Label>
                                     <DatePicker
-                                        className="mb-2 border-solid border-2 rounded-md"
                                         id={`${el.roomNumber}start`}
-                                        showIcon
                                         selected={start}
                                         minDate={new Date()}
-                                        onChange={(start) => setStart(start)}
+                                        onChange={(date) => setStart(date)}
                                         dateFormat={"dd/MM/yyyy"}
                                         excludeDateIntervals={booked}
-                                        placeholderText={`${new Date().toLocaleDateString(
+                                        className="w-full border border-gray-300 rounded px-3 py-2"
+                                        placeholderText={new Date().toLocaleDateString(
                                             "en-UK",
-                                        )}`}
+                                        )}
+                                        showPopperArrow={false}
                                     />
+                                </div>
+                                <div>
                                     <Label
                                         htmlFor={`${el.roomNumber}end`}
-                                        className="mb-1"
+                                        className="mb-1 block font-medium"
                                     >
                                         Check-out
                                     </Label>
                                     <DatePicker
-                                        className="mb-2 border-solid border-2 rounded-md"
                                         id={`${el.roomNumber}end`}
-                                        showIcon
                                         selected={end}
-                                        minDate={Math.max(
-                                            new Date(),
-                                            addDays(start, 1),
-                                        )}
-                                        placeholderText={`${addDays(
-                                            new Date(),
-                                            1,
-                                        ).toLocaleDateString("en-UK")}`}
-                                        onChange={(end) => setEnd(end)}
+                                        minDate={addDays(start, 1)}
+                                        onChange={(date) => setEnd(date)}
                                         dateFormat={"dd/MM/yyyy"}
                                         excludeDateIntervals={booked}
+                                        className="w-full border border-gray-300 rounded px-3 py-2"
+                                        placeholderText={addDays(
+                                            new Date(),
+                                            1,
+                                        ).toLocaleDateString("en-UK")}
+                                        showPopperArrow={false}
                                     />
-                                </DialogDescription>
-                                <Link
-                                    className="!text-white"
-                                    to={
-                                        user == null || user.id == null
-                                            ? "/login"
-                                            : ""
-                                    }
-                                >
-                                    <Payment
-                                        amount={
-                                            el.roomType === "DELUXE"
-                                                ? 2500 * 100
-                                                : el.roomType === "DOUBLE"
-                                                  ? 1500 * 100
-                                                  : 1000 * 100
-                                        }
-                                        className="w-20"
-                                        callback={
-                                            user != null && user.id != null
-                                                ? () => bookRoom(el, start, end)
-                                                : () => {}
-                                        }
-                                    />
-                                </Link>
-                            </DialogHeader>
-                        </DialogContent>
-                    </Dialog>
-                </CardContent>
-            </Card>
-        </>
+                                </div>
+
+                                {/* Payment / Login button separated on its own line */}
+                                <div className="mt-6">
+                                    {user && user.id ? (
+                                        <Payment
+                                            amount={price * 100}
+                                            className="w-full max-w-xs block mx-auto"
+                                            callback={() =>
+                                                bookRoom(el, start, end)
+                                            }
+                                        />
+                                    ) : (
+                                        <Link
+                                            to="/login"
+                                            className="w-full max-w-xs block mx-auto text-center bg-indigo-600 py-2 rounded hover:bg-indigo-700 transition"
+                                        >
+                                            Login to Book
+                                        </Link>
+                                    )}
+                                </div>
+                            </DialogDescription>
+                        </DialogHeader>
+                    </DialogContent>
+                </Dialog>
+            </CardContent>
+        </Card>
     );
 }

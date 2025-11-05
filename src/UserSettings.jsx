@@ -86,7 +86,7 @@ export default function EditProfilePage({ user }) {
                             <div className="space-y-2">
                                 <Label htmlFor="phone">Phone number:</Label>
                                 <PhoneInput
-                                    className="border-solid border-2 border-sky-200 rounded-md h-9"
+                                    className="rounded-md h-9"
                                     required
                                     id="phone"
                                     placeholder="Enter phone number"

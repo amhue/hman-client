@@ -1,6 +1,6 @@
 import { parseISO, subDays } from "date-fns";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import BookCard from "./components/BookCard";
 import SearchRoom from "./components/SearchRoom";
 
@@ -10,6 +10,7 @@ export default function Book({ user }) {
     const [loaded, setLoaded] = useState(false);
 
     const params = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const req = {};
@@ -31,7 +32,7 @@ export default function Book({ user }) {
                 setLoaded(true);
             })
             .catch((err) => setErr(err));
-    }, [params]);
+    }, [params, user, navigate]);
 
     if (err != null) {
         return (

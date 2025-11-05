@@ -56,7 +56,7 @@ export default function AddRoomDialog() {
 
     return (
         <Dialog>
-            <DialogTrigger className="text-white !p-1 flex !pl-3 !pr-3 !overflow-auto">
+            <DialogTrigger className="!p-1 flex !pl-3 !pr-3 !overflow-auto">
                 Add Room <IoMdAdd className="mt-1" />
             </DialogTrigger>
             <DialogContent>
@@ -90,7 +90,7 @@ export default function AddRoomDialog() {
                     </span>
                     <DialogFooter className="w-full mt-2 flex !justify-center">
                         <Button onClick={addRoom}>Ok</Button>
-                        <DialogClose className="!pt-1 !pb-1 text-white">
+                        <DialogClose className="!pt-1 !pb-1">
                             Cancel
                         </DialogClose>
                     </DialogFooter>

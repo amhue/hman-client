@@ -58,7 +58,7 @@ export default function SearchRoom() {
                     value={roomType}
                     onValueChange={(roomType) => setRoomType(roomType)}
                 >
-                    <SelectTrigger className="w-[180px] !bg-white border-2 !border-sky-200 !font-normal">
+                    <SelectTrigger className="w-[180px] !bg-[var(--background)] !border-[var(--border)] !border-2">
                         <SelectValue />
                     </SelectTrigger>
                     <SelectContent>

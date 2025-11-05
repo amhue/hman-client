@@ -96,7 +96,7 @@ export default function TableCard({ table, bookings }) {
                         setValue(value);
                     }}
                 >
-                    <SelectTrigger className="w-full !bg-white !bg-white border-2 !border-sky-200 !font-normal">
+                    <SelectTrigger className="w-full !font-normal">
                         <SelectValue />
                     </SelectTrigger>
                     <SelectContent>

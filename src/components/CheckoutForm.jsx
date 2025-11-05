@@ -45,7 +45,7 @@ export default function CheckoutForm({ className, callback }) {
             <Button
                 disabled={isProcessing}
                 onClick={handleSubmit}
-                className={className + " mt-3"}
+                className={className + " mt-6"}
             >
                 {isProcessing ? "Processing..." : "Book"}
             </Button>

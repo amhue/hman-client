@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-
 import {
     Table,
     TableBody,
@@ -9,9 +8,9 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Card } from "@/components/ui/card";
 import { FaFilePdf } from "react-icons/fa";
 import { IoMdSearch } from "react-icons/io";
 
@@ -24,10 +23,12 @@ export default function AdminUsers() {
 
     useEffect(() => {
         fetch(
-            `${import.meta.env.VITE_SERVER_URL}/api/admin/users${params && params.userSearch ? "?userString=" + params.userSearch : ""}`,
-            {
-                credentials: "include",
-            },
+            `${import.meta.env.VITE_SERVER_URL}/api/admin/users${
+                params && params.userSearch
+                    ? "?userString=" + params.userSearch
+                    : ""
+            }`,
+            { credentials: "include" },
         )
             .then((res) => res.json())
             .then((users) => {
@@ -37,92 +38,112 @@ export default function AdminUsers() {
             .catch((err) => setErr(err));
     }, [params]);
 
-    if (err != null) {
+    if (err)
         return (
-            <div className="text-2xl h-[calc(100vh-8rem)] pl-3">
-                Could not load users!...
+            <div className="flex items-center justify-center h-[80vh] text-xl text-red-600">
+                Could not load users.
             </div>
         );
-    } else if (!loaded) {
+
+    if (!loaded)
         return (
-            <div className="text-2xl h-[calc(100vh-8rem)] pl-3">
-                Loading data...
+            <div className="flex items-center justify-center h-[80vh] text-xl text-gray-500 dark:text-gray-300">
+                Loading users...
             </div>
         );
-    } else if (users.length <= 0) {
-        return (
-            <div className="grid justify-items-center w-screen min-h-screen">
-                <div className="flex w-screen justify-center gap-3 mt-6 relative">
+
+    return (
+        <div className="min-h-screen w-screen py-8">
+            <h1 className="text-center text-4xl font-semibold tracking-tight mb-8 text-gray-800 dark:text-gray-100">
+                Customer Management
+            </h1>
+
+            {/* Card now takes full width */}
+            <Card className="w-[95vw] mx-auto p-6 shadow-md border border-gray-200 dark:border-gray-700 bg-white/90 dark:bg-gray-900/80 backdrop-blur">
+                {/* Search Section */}
+                <div className="flex flex-wrap justify-center items-center gap-3 mb-6">
                     <Input
-                        className="w-50"
+                        className="w-64 md:w-80"
                         placeholder="Search for customers..."
                         value={userSearch}
                         onChange={(e) => setUserSearch(e.target.value)}
                     />
                     <Link to={`/users/${userSearch}`}>
-                        <Button>
-                            <IoMdSearch />
+                        <Button className="flex items-center gap-2">
+                            <IoMdSearch className="text-lg" />
                             Search
                         </Button>
                     </Link>
                 </div>
-                <div className="text-4xl font-bold text-center w-screen">
-                    No users found!
-                </div>
-            </div>
-        );
-    }
 
-    return (
-        <div className="pt-6 min-h-screen w-screen">
-            <h1 className="w-screen text-center !text-4xl font-medium mb-6">
-                Customers
-            </h1>
-            <div className="flex w-screen justify-center gap-3 mb-4 relative">
-                <Input
-                    className="w-50"
-                    placeholder="Search for customers..."
-                    value={userSearch}
-                    onChange={(e) => setUserSearch(e.target.value)}
-                />
-                <Link to={`/users/${userSearch}`}>
-                    <Button>
-                        <IoMdSearch />
-                        Search
-                    </Button>
-                </Link>
-            </div>
-            <Table>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead>Name</TableHead>
-                        <TableHead>E-mail</TableHead>
-                        <TableHead>Phone</TableHead>
-                        <TableHead>Document</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {users.map((user) => (
-                        <TableRow key={user.id}>
-                            <TableCell>{user.name}</TableCell>
-                            <TableCell>{user.email}</TableCell>
-                            <TableCell>
-                                {user.phone ? user.phone : "N/A"}
-                            </TableCell>
-                            <TableCell>
-                                {user.docName ? (
-                                    <span className="flex w-full justify-center">
-                                        <FaFilePdf className="mt-0.75" />
-                                        {user.docName}
-                                    </span>
-                                ) : (
-                                    "N/A"
-                                )}
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+                {/* Table Section */}
+                <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700 w-full">
+                    <Table className="w-full">
+                        <TableHeader>
+                            <TableRow className="bg-gray-100 dark:bg-gray-800">
+                                <TableHead className="font-semibold w-[25%]">
+                                    Name
+                                </TableHead>
+                                <TableHead className="font-semibold w-[25%]">
+                                    E-mail
+                                </TableHead>
+                                <TableHead className="font-semibold w-[20%]">
+                                    Phone
+                                </TableHead>
+                                <TableHead className="font-semibold w-[30%] text-center">
+                                    Document
+                                </TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {users.length > 0 ? (
+                                users.map((user) => (
+                                    <TableRow
+                                        key={user.id}
+                                        className="hover:bg-gray-50 dark:hover:bg-gray-800/60 transition-colors"
+                                    >
+                                        <TableCell>{user.name}</TableCell>
+                                        <TableCell>{user.email}</TableCell>
+                                        <TableCell>
+                                            {user.phone || (
+                                                <span className="text-gray-400">
+                                                    N/A
+                                                </span>
+                                            )}
+                                        </TableCell>
+                                        <TableCell>
+                                            {user.docName ? (
+                                                <a
+                                                    href={`${import.meta.env.VITE_SERVER_URL}/uploads/${user.docName}`}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="flex items-center justify-center gap-2 text-blue-600 hover:underline"
+                                                >
+                                                    <FaFilePdf className="text-red-600" />
+                                                    {user.docName}
+                                                </a>
+                                            ) : (
+                                                <span className="text-gray-400">
+                                                    N/A
+                                                </span>
+                                            )}
+                                        </TableCell>
+                                    </TableRow>
+                                ))
+                            ) : (
+                                <TableRow>
+                                    <TableCell
+                                        colSpan={4}
+                                        className="text-center py-6 text-gray-500 dark:text-gray-400"
+                                    >
+                                        No users found
+                                    </TableCell>
+                                </TableRow>
+                            )}
+                        </TableBody>
+                    </Table>
+                </div>
+            </Card>
         </div>
     );
 }

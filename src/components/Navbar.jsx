@@ -14,65 +14,70 @@ export default function Navbar({ user }) {
         { label: "Home", href: "/" },
         { label: "Rooms", href: "/book" },
         { label: "Restaurant", href: "/table" },
-        // { label: "Contact", href: "#contact" },
-        // { label: "Item Five" },
     ];
 
     return (
-        <NavigationMenu className="w-screen z-50 fixed top-0">
-            <NavigationMenuList className="flex w-screen text-white hover:text-white focus:text-white justify-around bg-black/95 h-13">
-                <NavigationMenuItem className="text-center duration-300 ease-out hover:bg-white/10 w-full h-full grid !content-center !rounded-xl w-60">
-                    <Link
-                        title="Grand Oasis"
-                        className="w-full h-full flex place-items-center justify-center"
-                        to="/"
-                    >
-                        <img src={logo} className="rounded-4xl w-8" />
-                    </Link>
-                </NavigationMenuItem>
-                {navItems.map((item) => (
-                    <NavigationMenuItem
-                        key={item.href}
-                        className="text-center duration-300 ease-out hover:bg-white/10 w-full h-full grid !content-center !rounded-xl"
-                    >
+        <NavigationMenu
+            className="w-screen fixed top-0 left-0 right-0 z-50 bg-black/70 backdrop-blur-md shadow-md"
+        >
+            <div className="w-screen mx-auto px-6">
+                <NavigationMenuList className="flex items-center justify-between h-13 text-white">
+                    {/* Logo */}
+                    <NavigationMenuItem className="flex-shrink-0">
                         <Link
-                            to={item.href}
-                            className="!text-white hover:opacity-75 focus:opacity-75 duration-300 ease-out w-full h-full"
+                            to="/"
+                            title="Grand Oasis"
+                            className="!text-white flex items-center gap-3"
                         >
-                            {item.label}
+                            <img
+                                src={logo}
+                                alt="Grand Oasis Logo"
+                                className="w-10 h-10 rounded-3xl"
+                            />
+                            <span className="font-semibold text-xl select-none">
+                                Grand Oasis
+                            </span>
                         </Link>
                     </NavigationMenuItem>
-                ))}
-                <NavigationMenuItem className="text-center duration-300 ease-out hover:bg-white/10 w-full h-full grid !content-center !rounded-xl">
-                    <a
-                        href="#contact"
-                        className="!text-white hover:opacity-75 focus:opacity-75 duration-300 ease-out w-full h-full"
-                    >
-                        Contacts
-                    </a>
-                </NavigationMenuItem>
-                <NavigationMenuItem className="text-center duration-300 ease-out hover:bg-white/10 w-full h-full grid !content-center !rounded-xl w-60">
-                    <Link
-                        title={
-                            user !== null && user.id !== null
-                                ? user.email
-                                : "Login"
-                        }
-                        className="w-full h-full flex place-items-center justify-center"
-                        to={
-                            user !== null && user.id != null
-                                ? `/user`
-                                : "/login"
-                        }
-                    >
-                        {user !== null && user.id != null ? (
-                            <UserCircle className="text-white" />
-                        ) : (
-                            <IoLogIn className="text-white" size="30" />
-                        )}
-                    </Link>
-                </NavigationMenuItem>
-            </NavigationMenuList>
+
+                    {/* Navigation Links */}
+                    <nav className="flex space-x-8 flex-grow justify-center">
+                        {navItems.map((item) => (
+                            <NavigationMenuItem key={item.href}>
+                                <Link
+                                    to={item.href}
+                                    className="!text-white px-3 py-2 rounded-md hover:bg-white/20 transition-colors duration-300"
+                                >
+                                    {item.label}
+                                </Link>
+                            </NavigationMenuItem>
+                        ))}
+                        <NavigationMenuItem>
+                            <a
+                                href="#contact"
+                                className="!text-white px-3 py-2 rounded-md hover:bg-white/20 transition-colors duration-300"
+                            >
+                                Contacts
+                            </a>
+                        </NavigationMenuItem>
+                    </nav>
+
+                    {/* User/Login */}
+                    <NavigationMenuItem className="flex-shrink-0">
+                        <Link
+                            to={user && user.id ? "/user" : "/login"}
+                            title={user && user.email ? user.email : "Login"}
+                            className="flex items-center justify-center w-12 h-12 rounded-full hover:bg-white/20 transition-colors duration-300"
+                        >
+                            {user && user.id ? (
+                                <UserCircle className="w-8 h-8 text-white" />
+                            ) : (
+                                <IoLogIn className="w-8 h-8 text-white" />
+                            )}
+                        </Link>
+                    </NavigationMenuItem>
+                </NavigationMenuList>
+            </div>
         </NavigationMenu>
     );
 }
