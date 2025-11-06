@@ -68,11 +68,9 @@ export default function Table() {
 
     if (!params.start || !params.capacity) {
         return (
-            <div className="grid w-screen justify-items-center pt-20 !min-h-screen">
-                <div className="absolute top-0">
-                    <TableSearch />
-                </div>
-                <div className="text-4xl font-bold text-center w-screen absolute top-[50%] -mt-[6rem]">
+            <div className="grid justify-items-center w-screen h-screen">
+                <TableSearch />
+                <div className="text-4xl font-bold text-center w-screen -mt-[6rem]">
                     Search for tables to reserve
                 </div>
             </div>
@@ -99,12 +97,10 @@ export default function Table() {
 
     if (!tables || tables.length === 0) {
         return (
-            <div className="grid w-screen justify-items-center pt-20">
-                <div className="absolute top-0">
-                    <TableSearch />
-                </div>
-                <div className="text-4xl font-bold text-center w-screen absolute top-[50%] -mt-[6rem]">
-                    Sorry, no tables are available!
+            <div className="grid justify-items-center w-screen h-screen">
+                <TableSearch />
+                <div className="text-4xl font-bold text-center w-screen -mt-[6rem]">
+                    Sorry, No tables are available!
                 </div>
             </div>
         );

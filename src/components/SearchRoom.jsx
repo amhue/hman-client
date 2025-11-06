@@ -6,11 +6,11 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 
+import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { addDays } from "date-fns";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
-import { addDays } from "date-fns";
-import { Button } from "@/components/ui/button";
 import { IoMdSearch } from "react-icons/io";
 import { Link } from "react-router-dom";
 
@@ -69,7 +69,7 @@ export default function SearchRoom() {
                 </Select>
             </span>
             <span>
-                <Button className="mt-[calc(1rem+5px)]">
+                <Button className="mt-[1.4em]">
                     <Link
                         className="!text-white flex gap-1"
                         to={`/book/${start.toISOString().substring(0, 10)}/${end.toISOString().substring(0, 10)}/${roomType}`}

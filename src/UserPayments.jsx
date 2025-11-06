@@ -56,7 +56,7 @@ export default function UserPayments() {
                         >
                             <CardHeader>
                                 <CardTitle>Room {bill.billType}: </CardTitle>
-                                <CardAction>${bill.amount}</CardAction>
+                                <CardAction>₹{bill.amount}</CardAction>
                             </CardHeader>
                         </Card>
                     ))}

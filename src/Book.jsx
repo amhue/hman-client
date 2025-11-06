@@ -1,6 +1,6 @@
 import { parseISO, subDays } from "date-fns";
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import BookCard from "./components/BookCard";
 import SearchRoom from "./components/SearchRoom";
 
@@ -49,7 +49,7 @@ export default function Book({ user }) {
     } else if (!Array.isArray(json) || json.length === 0) {
         console.log("json:", json);
         return (
-            <div className="grid justify-items-center w-screen mt-[4em] h-[calc(100vh-6rem)]">
+            <div className="grid justify-items-center w-screen mt-[4em] h-screen">
                 <SearchRoom />
                 <div className="text-4xl font-bold text-center w-screen -mt-[6rem]">
                     Sorry, No rooms are available!

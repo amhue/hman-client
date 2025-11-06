@@ -22,7 +22,7 @@ export default function TableSearch() {
     localStorage.setItem("date", JSON.stringify(date));
 
     return (
-        <div className="flex gap-5 flex-wrap mt-16 relative">
+        <div className="flex gap-5 mt-17">
             <div>
                 <Label htmlFor="date" className="mb-1">
                     Date:
@@ -67,10 +67,10 @@ export default function TableSearch() {
                 </Select>
             </div>
             <Link
-                className="!text-white flex gap-1 place-items-center"
+                className="!text-white max-h-0"
                 to={`/table/${date.toISOString().substring(0, 16)}/${value}`}
             >
-                <Button className="mt-1">
+                <Button className="mt-[1.1em]">
                     Find <IoMdSearch />
                 </Button>
             </Link>
